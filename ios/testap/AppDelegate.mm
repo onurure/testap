@@ -1,5 +1,5 @@
 #import "AppDelegate.h"
-
+#import "OtaHotUpdate.h"
 #import <React/RCTBundleURLProvider.h>
 
 @implementation AppDelegate
@@ -16,7 +16,11 @@
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 {
-  return [self bundleURL];
+  #if DEBUG
+    return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index"];
+  #else
+    return [OtaHotUpdate getBundle]; ## add this line
+  #endif
 }
 
 - (NSURL *)bundleURL
